@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import BudgetForm from "./components/BudgetForm";
 import Header from "./components/Header";
+import { BudgetContext } from "./context/BuggetContext";
 
 function App() {
+  const context = useContext(BudgetContext);
+  console.log(context);
   return (
     <>
       <Header />
