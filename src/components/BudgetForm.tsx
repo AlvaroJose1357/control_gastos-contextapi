@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
+import { useBudget } from "../hooks/useBudget";
 
 export default function BudgetForm() {
   const [budget, setBudget] = useState(0);
+  const { dispatch } = useBudget();
   const hangleChange = (even: React.ChangeEvent<HTMLInputElement>) => {
     setBudget(+even.target.value);
   };
@@ -12,8 +14,14 @@ export default function BudgetForm() {
   const isValid = useMemo(() => {
     return isNaN(budget) || budget <= 0;
   }, [budget]);
+
+  const handleSubmit = (even: React.FormEvent<HTMLFormElement>) => {
+    even.preventDefault();
+    dispatch({ type: "add-budget", payload: { budget } });
+    console.log("añadir presupuesto");
+  };
   return (
-    <form className="space-y-5">
+    <form className="space-y-5" onSubmit={handleSubmit}>
       <div className="flex flex-col space-y">
         <label
           htmlFor="budget"
