@@ -4,15 +4,23 @@ export type BudgetAction =
       payload: { budget: number };
     }
   | {
+      type: "show-modal";
+    }
+  | {
+      type: "close-modal";
+    }
+  | {
       type: "place-budget";
     };
 
 export type BudgetState = {
   budget: number;
+  modal: boolean;
 };
 
 export const initialState: BudgetState = {
   budget: 0,
+  modal: false,
 };
 
 export const budgetReducer = (
@@ -23,6 +31,18 @@ export const budgetReducer = (
     return {
       ...state,
       budget: action.payload.budget,
+    };
+  }
+  if (action.type === "show-modal") {
+    return {
+      ...state,
+      modal: true,
+    };
+  }
+  if (action.type === "close-modal") {
+    return {
+      ...state,
+      modal: false,
     };
   }
   if (action.type === "place-budget") {
