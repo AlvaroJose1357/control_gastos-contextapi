@@ -20,7 +20,7 @@ export default function ExpenseForm() {
   };
 
   const hangleChange = (
-    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
   ) => {
     const { name, value } = event.target;
     const isAmountField = ["amount"].includes(name);
@@ -31,7 +31,7 @@ export default function ExpenseForm() {
   };
   return (
     <form className="space-y-5">
-      <h1 className="uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2">
+      <h1 className="border-b-4 border-blue-500 py-2 text-center text-2xl font-black uppercase">
         Nuevo Gasto
       </h1>
       <div className="flex flex-col gap-2">
@@ -86,14 +86,14 @@ export default function ExpenseForm() {
           Fecha del Gasto
         </label>
         <DatePicker
-          className="bg-slate-100 p-2 border-0"
+          className="border-0 bg-slate-100 p-2"
           value={expense.date}
           onChange={handleChangeDate}
         />
       </div>
       <button
         type="submit"
-        className="bg-blue-500 text-white p-2 rounded-lg uppercase font-bold cursor-pointer w-full"
+        className="w-full cursor-pointer rounded-lg bg-blue-500 p-2 font-bold uppercase text-white"
       >
         Añadir Gasto
       </button>

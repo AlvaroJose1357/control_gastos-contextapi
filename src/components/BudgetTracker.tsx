@@ -4,14 +4,14 @@ import { useBudget } from "../hooks/useBudget";
 export default function BudgetTracker() {
   const { state, dispatch } = useBudget();
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
       <div className="flex justify-center">
         <img src="/public/grafico.jpg" alt="Grafica de gastos" />
       </div>
-      <div className="flex flex-col justify-center items-center gap-8">
+      <div className="flex flex-col items-center justify-center gap-8">
         <button
           type="button"
-          className="w-full p-2 bg-pink-600 text-white uppercase font-bold rounded-2xl"
+          className="w-full rounded-2xl bg-pink-600 p-2 font-bold uppercase text-white"
           onClick={() => dispatch({ type: "place-budget" })}
         >
           Resetear App

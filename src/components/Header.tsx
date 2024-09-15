@@ -1,7 +1,7 @@
 export default function Header() {
   return (
-    <header className="bg-blue-600 py-8 max-h-72">
-      <h1 className="uppercase text-center font-black text-4xl text-white">
+    <header className="max-h-72 bg-blue-600 py-8">
+      <h1 className="text-center text-4xl font-black uppercase text-white">
         Planificador de Gastos y Presupuesto
       </h1>
     </header>

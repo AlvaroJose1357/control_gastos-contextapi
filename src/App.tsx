@@ -11,11 +11,11 @@ function App() {
   return (
     <>
       <Header />
-      <div className="max-w-3xl mx-auto shadow-lg rounded-lg mt-10 p-10">
+      <div className="mx-auto mt-10 max-w-3xl rounded-lg p-10 shadow-lg">
         {isValidBudget ? <BudgetTracker /> : <BudgetForm />}
       </div>
       {isValidBudget && (
-        <main className="max-w-3xl mx-auto py-10">
+        <main className="mx-auto max-w-3xl py-10">
           <ExpenseModal />
         </main>
       )}

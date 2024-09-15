@@ -22,10 +22,10 @@ export default function BudgetForm() {
   };
   return (
     <form className="space-y-5" onSubmit={handleSubmit}>
-      <div className="flex flex-col space-y">
+      <div className="space-y flex flex-col">
         <label
           htmlFor="budget"
-          className="text-4xl text-blue-600 font-bold text-center"
+          className="text-center text-4xl font-bold text-blue-600"
         >
           Definir Presupuesto
         </label>
@@ -36,12 +36,12 @@ export default function BudgetForm() {
           value={budget}
           onChange={hangleChange}
           placeholder="Definir presupuesto"
-          className="w-full bg-white border border-gray-200 p-2"
+          className="w-full border border-gray-200 bg-white p-2"
         />
       </div>
       <input
         type="submit"
-        className="w-full bg-blue-600 hover:bg-blue-700 cursor-pointer text-white font-bold p-2 rounded-full uppercase disabled:opacity-30"
+        className="w-full cursor-pointer rounded-full bg-blue-600 p-2 font-bold uppercase text-white hover:bg-blue-700 disabled:opacity-30"
         disabled={isValid}
         value={"Definir Presupuesto"}
       />

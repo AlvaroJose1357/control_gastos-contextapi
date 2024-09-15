@@ -6,7 +6,7 @@ type AmountDisplayProps = {
 };
 export default function AmountDisplay({ label, amount }: AmountDisplayProps) {
   return (
-    <p className="text-2xl text-blue-500 font-bold">
+    <p className="text-2xl font-bold text-blue-500">
       {label}:{" "}
       <span className="font-black text-black">{formatCurrency(amount)}</span>
     </p>
