@@ -4,6 +4,7 @@ import DatePicker from "react-date-picker";
 import "react-calendar/dist/Calendar.css";
 import "react-date-picker/dist/DatePicker.css";
 import type { DraftExpense, Value } from "../types";
+import ErrorMessage from "./ErrorMessage";
 
 export default function ExpenseForm() {
   const [expense, setExpense] = useState<DraftExpense>({
@@ -12,6 +13,7 @@ export default function ExpenseForm() {
     category: "",
     date: new Date(),
   });
+  const [error, setError] = useState("");
   const handleChangeDate = (value: Value) => {
     setExpense({
       ...expense,
@@ -29,11 +31,27 @@ export default function ExpenseForm() {
       [name]: isAmountField ? +value : value,
     });
   };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (
+      Object.values(expense).includes("") ||
+      Object.values(expense).includes(0)
+    ) {
+      setError("Todos los campos son obligatorios");
+      return;
+    }
+    console.log(expense);
+  };
   return (
-    <form className="space-y-5">
+    <form className="space-y-5" onSubmit={handleSubmit}>
       <h1 className="border-b-4 border-blue-500 py-2 text-center text-2xl font-black uppercase">
         Nuevo Gasto
       </h1>
+      {/* este es pasandole el error como prop */}
+      {/* {error && <ErrorMessage error={error} />} */}
+      {/* este es pasandole el error como children el cual es mas limpio y se puede usar en cualquier componente esto con el fin de que tambien pueda renderizar componentes y si algo poderle pasar diferentes mensajes de error*/}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       <div className="flex flex-col gap-2">
         <label htmlFor="expenseName" className="text-xl">
           Nombre del Gasto
