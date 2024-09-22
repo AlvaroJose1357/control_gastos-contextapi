@@ -1,3 +1,4 @@
+// type de react-date-picker y calendar
 type ValuePiece = Date | null;
 
 export type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -9,7 +10,7 @@ export type Expense = {
   category: string;
   date: Value;
 };
-
+// gasto temporal sin id
 export type DraftExpense = Omit<Expense, "id">;
 
 export type Category = {
