@@ -16,6 +16,10 @@ export type BudgetAction =
       payload: { expense: DraftExpense };
     }
   | {
+      type: "remove-expense";
+      payload: { id: Expense["id"] };
+    }
+  | {
       type: "place-budget";
     };
 
@@ -74,6 +78,14 @@ export const budgetReducer = (
       ...state,
       expenses: [...state.expenses, expense],
       modal: false,
+    };
+  }
+  if (action.type === "remove-expense") {
+    return {
+      ...state,
+      expenses: state.expenses.filter(
+        (expense) => expense.id !== action.payload.id,
+      ),
     };
   }
   if (action.type === "place-budget") {
