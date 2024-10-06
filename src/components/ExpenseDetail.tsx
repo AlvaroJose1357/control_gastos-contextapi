@@ -1,4 +1,12 @@
 import { useMemo } from "react";
+import {
+  LeadingActions,
+  SwipeableList,
+  SwipeableListItem,
+  SwipeAction,
+  TrailingActions,
+} from "react-swipeable-list";
+import "react-swipeable-list/dist/styles.css";
 import { formatDate } from "../helpers";
 import { Expense } from "../types";
 import AmountDisplay from "./AmountDisplay";
@@ -18,26 +26,53 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
       )!,
     [expense],
   );
+  // funciones del swipeable
+  // En esta accion lo colocamos en una Arrow function con {} (cuerpo con bloque) (Debe de tener un return)
+  const leadingActions = () => {
+    return (
+      <LeadingActions>
+        <SwipeAction onClick={() => console.log("edit")}>
+          Actualizar
+        </SwipeAction>
+      </LeadingActions>
+    );
+  };
+  // En esta accion lo colocamos en una Arrow function con () (retorno implícito) (No necesita un return)
+  const trailingActions = () => (
+    <TrailingActions>
+      <SwipeAction onClick={() => console.log("delete")} destructive={true}>
+        Eliminar
+      </SwipeAction>
+    </TrailingActions>
+  );
   return (
-    <div className="flex w-full items-center gap-5 border-b border-gray-500 bg-white p-10 shadow-lg">
-      <div>
-        <img
-          src={`/icono_${categoryInfo.icon}.svg`}
-          alt="icono gasto"
-          className="w-20"
-        />
-      </div>
-      <div className="flex-1 space-y-3">
-        <p className="text-sm font-bold uppercase text-slate-500">
-          {categoryInfo.name}
-        </p>
-        <p className="text-xl font-bold text-gray-600">{expenseName}</p>
-        <p className="text-lg text-slate-600">
-          {/* lo que me dice ! es que el valor que evalua si o si nosotros sabemos que va a existirrs */}
-          {formatDate(expense.date!.toString())}
-        </p>
-      </div>
-      <AmountDisplay amount={amount} />
-    </div>
+    <SwipeableList>
+      <SwipeableListItem
+        maxSwipe={30}
+        leadingActions={leadingActions()}
+        trailingActions={trailingActions()}
+      >
+        <div className="flex w-full items-center gap-5 border-b border-gray-500 bg-white p-10 shadow-lg">
+          <div>
+            <img
+              src={`/icono_${categoryInfo.icon}.svg`}
+              alt="icono gasto"
+              className="w-20"
+            />
+          </div>
+          <div className="flex-1 space-y-3">
+            <p className="text-sm font-bold uppercase text-slate-500">
+              {categoryInfo.name}
+            </p>
+            <p className="text-xl font-bold text-gray-600">{expenseName}</p>
+            <p className="text-lg text-slate-600">
+              {/* lo que me dice ! es que el valor que evalua si o si nosotros sabemos que va a existirrs */}
+              {formatDate(expense.date!.toString())}
+            </p>
+          </div>
+          <AmountDisplay amount={amount} />
+        </div>
+      </SwipeableListItem>
+    </SwipeableList>
   );
 }
