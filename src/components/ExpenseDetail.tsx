@@ -18,6 +18,7 @@ type ExpenseDetailProps = {
 };
 export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
   const { id, expenseName, amount } = expense;
+  const { dispatch } = useBudget();
   const categoryInfo = useMemo(
     // el filter me devuelve un array con un solo elemento por eso el [0]
     // la otra forma es con find que me devuelve el objeto directamente sin necesidad de poner [0] ya que find me devuelve el objeto que cumple con la condiciones que le pase, lo unico que debo tener en cuenta es que si no encuentra el objeto me devolvera undefined por eso el ! al final
@@ -27,14 +28,17 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
       )!,
     [expense],
   );
-  const { dispatch } = useBudget();
 
   // funciones del swipeable
   // En esta accion lo colocamos en una Arrow function con {} (cuerpo con bloque) (Debe de tener un return)
   const leadingActions = () => {
     return (
       <LeadingActions>
-        <SwipeAction onClick={() => console.log("edit")}>
+        <SwipeAction
+          onClick={() =>
+            dispatch({ type: "get-expense-by-id", payload: { id: id } })
+          }
+        >
           Actualizar
         </SwipeAction>
       </LeadingActions>

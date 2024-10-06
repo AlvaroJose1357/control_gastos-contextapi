@@ -20,6 +20,14 @@ export type BudgetAction =
       payload: { id: Expense["id"] };
     }
   | {
+      type: "get-expense-by-id";
+      payload: { id: Expense["id"] };
+    }
+  | {
+      type: "update-expense";
+      payload: { expense: Expense };
+    }
+  | {
       type: "place-budget";
     };
 
@@ -27,12 +35,14 @@ export type BudgetState = {
   budget: number;
   modal: boolean;
   expenses: Expense[];
+  editingID: Expense["id"];
 };
 
 export const initialState: BudgetState = {
   budget: 0,
   modal: false,
   expenses: [],
+  editingID: "",
 };
 // Crear un gasto con id unico usando uuid y recibe como parametro un gasto en borrador de tipo DraftExpense sin ID y el cual nos debera de retornar un gasto de tipo Expense con un id unico
 const createExpense = (draftExpense: DraftExpense): Expense => {
@@ -70,6 +80,7 @@ export const budgetReducer = (
     return {
       ...state,
       modal: false,
+      editingID: "",
     };
   }
   if (action.type === "add-expense") {
@@ -86,6 +97,25 @@ export const budgetReducer = (
       expenses: state.expenses.filter(
         (expense) => expense.id !== action.payload.id,
       ),
+    };
+  }
+  if (action.type === "get-expense-by-id") {
+    return {
+      ...state,
+      editingID: action.payload.id,
+      modal: true,
+    };
+  }
+  if (action.type === "update-expense") {
+    return {
+      ...state,
+      expenses: state.expenses.map((expense) =>
+        expense.id === action.payload.expense.id
+          ? action.payload.expense
+          : expense,
+      ),
+      modal: false,
+      editingID: "",
     };
   }
   if (action.type === "place-budget") {
