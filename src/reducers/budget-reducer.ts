@@ -38,10 +38,20 @@ export type BudgetState = {
   editingID: Expense["id"];
 };
 
+const localStorageBudget = (): number => {
+  const localBudget = localStorage.getItem("budget");
+  return localBudget ? parseInt(localBudget) : 0;
+};
+
+const localStorageExpenses = (): Expense[] => {
+  const localExpenses = localStorage.getItem("expenses");
+  return localExpenses ? JSON.parse(localExpenses) : [];
+};
+
 export const initialState: BudgetState = {
-  budget: 0,
+  budget: localStorageBudget(),
   modal: false,
-  expenses: [],
+  expenses: localStorageExpenses(),
   editingID: "",
 };
 // Crear un gasto con id unico usando uuid y recibe como parametro un gasto en borrador de tipo DraftExpense sin ID y el cual nos debera de retornar un gasto de tipo Expense con un id unico
