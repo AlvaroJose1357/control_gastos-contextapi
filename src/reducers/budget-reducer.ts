@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { DraftExpense, Expense } from "../types";
+import { Category, DraftExpense, Expense } from "../types";
 export type BudgetAction =
   | {
       type: "add-budget";
@@ -29,6 +29,10 @@ export type BudgetAction =
     }
   | {
       type: "place-budget";
+    }
+  | {
+      type: "add-filter-category";
+      payload: { id: Category["id"] };
     };
 
 export type BudgetState = {
@@ -36,6 +40,7 @@ export type BudgetState = {
   modal: boolean;
   expenses: Expense[];
   editingID: Expense["id"];
+  currentCategory: Category["id"];
 };
 
 const localStorageBudget = (): number => {
@@ -53,6 +58,7 @@ export const initialState: BudgetState = {
   modal: false,
   expenses: localStorageExpenses(),
   editingID: "",
+  currentCategory: "",
 };
 // Crear un gasto con id unico usando uuid y recibe como parametro un gasto en borrador de tipo DraftExpense sin ID y el cual nos debera de retornar un gasto de tipo Expense con un id unico
 const createExpense = (draftExpense: DraftExpense): Expense => {
@@ -133,6 +139,12 @@ export const budgetReducer = (
       ...state,
       budget: 0,
       expenses: [],
+    };
+  }
+  if (action.type === "add-filter-category") {
+    return {
+      ...state,
+      currentCategory: action.payload.id,
     };
   }
   return state;
