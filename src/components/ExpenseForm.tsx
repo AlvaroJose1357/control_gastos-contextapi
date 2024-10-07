@@ -15,8 +15,9 @@ export default function ExpenseForm() {
     date: new Date(),
   };
   const [expense, setExpense] = useState<DraftExpense>(EXPENSEINITIAL);
+  const [previousAmount, setPreviousAmount] = useState(0);
   const [error, setError] = useState("");
-  const { state, dispatch } = useBudget();
+  const { state, dispatch, remainingBudget } = useBudget();
 
   useEffect(() => {
     if (state.editingID) {
@@ -24,6 +25,7 @@ export default function ExpenseForm() {
         (expense) => expense.id === state.editingID,
       )[0];
       setExpense(editingExpense);
+      setPreviousAmount(editingExpense.amount);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.editingID]);
@@ -56,6 +58,11 @@ export default function ExpenseForm() {
       setError("Todos los campos son obligatorios");
       return;
     }
+    // Validar que no se pase del presupuesto
+    if (expense.amount - previousAmount > remainingBudget) {
+      setError("El gasto supera el presupuesto restante");
+      return;
+    }
     // Agregar o actualizar el gasto
     if (state.editingID) {
       dispatch({
@@ -68,6 +75,7 @@ export default function ExpenseForm() {
     }
     // Limpiar el formulario y reiniciar el state
     setExpense(EXPENSEINITIAL);
+    setPreviousAmount(0);
   };
   return (
     <form className="space-y-5" onSubmit={handleSubmit}>
