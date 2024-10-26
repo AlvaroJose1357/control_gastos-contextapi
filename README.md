@@ -1,50 +1,16 @@
-# React + TypeScript + Vite
+# Control de gastos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es un proyecto en la cual se esta conociendo como funcionan los estados globales de una app, usando lo nativo de react context 
 
-Currently, two official plugins are available:
+Este es un proyecto el cual trata de una manejador de gastos el cual primero das tu presupuesto y apartir de ahi muestra la interfaz principal la cual podras añadir, actualizar o eliminar el gasto que agregaste, tambien podras resetear tu app para volver a colocar otro presupuesto, tambien podras mirar un barra progresiva de forma circular el cual dependiendo de cierto porcentage se coloca en cierto color, podras mirar tu presuuesto, lo que llevas gastado y lo que tangas disponible, y por ultimo podras filtrar dependiendo del gasto que poseeas 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Utiliza las tecnologias de
+- React
+- Taildwind
+- React-Calendar: para manejar las fechas
+- React-circular-progressbar: para mostrar el grafico
+- React-date-picker: se complementa con calendar
+- React-swipeable-list: para poder deslizar el elemento para asi eliminar o actualizar
+- uuid: generador de IDs
+- Context
+  
